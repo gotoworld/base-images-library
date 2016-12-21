@@ -13,5 +13,8 @@ wget http://dl.cnezsoft.com/zentao/8.4.1/ZenTaoPMS.8.4.1.zbox_64.tar.gz && \
     tar -xvf ZenTaoPMS.8.4.1.zbox_64.tar.gz -C /opt/
 	
 COPY ./run.sh /
+
+# EXPOSE port
+EXPOSE 80
 	
 ENTRYPOINT ["bash", "run.sh"]

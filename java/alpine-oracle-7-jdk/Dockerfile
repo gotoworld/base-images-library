@@ -12,7 +12,7 @@ ENV LANG=C.UTF-8 \
     JAVA_JCE=standard \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
-    GLIBC_VERSION=2.23-r3 
+    GLIBC_VERSION=2.25-r0 
 
 
 # soft install

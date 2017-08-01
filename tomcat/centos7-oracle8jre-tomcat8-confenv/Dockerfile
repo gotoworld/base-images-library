@@ -1,4 +1,4 @@
-# base centos:7
+# base centos:8
 FROM hub.heshidai.com/base/java/centos-oracle-8-jre
 
 # MAINTAINER
@@ -9,9 +9,6 @@ ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$CATALINA_HOME/bin
 ENV TOMCAT_VERSION_MAJOR 8
 ENV TOMCAT_VERSION_FULL  8.5.16
-
-#
-ADD entrypoint.sh $CATALINA_HOME/bin/entrypoint.sh
 
 # RUN  tomcat Download & Install
 RUN wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-${TOMCAT_VERSION_MAJOR}/v${TOMCAT_VERSION_FULL}/bin/apache-tomcat-${TOMCAT_VERSION_FULL}.tar.gz && \
@@ -26,6 +23,7 @@ RUN wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-${TOMCAT_VERSION_MAJOR}
 
 #optimazation
 ADD server.xml  ${CATALINA_HOME}/conf/server.xml
+ADD entrypoint.sh $CATALINA_HOME/bin/entrypoint.sh
 
 # WORKDIR SETING
 WORKDIR ${CATALINA_HOME}

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="8005" shutdown="SHUTDOWN">
+	<Listener className="org.apache.catalina.startup.VersionLoggerListener"/>
+	<Listener SSLEngine="on" className="org.apache.catalina.core.AprLifecycleListener"/>
+	<Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+	<Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+	<Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
+
+	<GlobalNamingResources>
+		<Resource name="UserDatabase" auth="Container"
+			type="org.apache.catalina.UserDatabase" description="User database that can be updated and saved"
+			factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+			pathname="conf/tomcat-users.xml" />
+	</GlobalNamingResources>
+
+	<Service name="Catalina">
+		<Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+			className="org.apache.catalina.core.StandardThreadExecutor"
+			threadPriority="5" daemon="true" maxThreads="20000" minSpareThreads="100"
+			maxIdleTime="40000" maxQueueSize="200" prestartminSpareThreads="true"
+			threadRenewalDelay="1000" />
+
+
+		<Connector executor="tomcatThreadPool" port="8080"
+			protocol="HTTP/1.1" redirectPort="8443"
+			enableLookups="false" URIEncoding="UTF-8" connectionTimeout="40000"
+			connectionUploadTimeout="30000" disableUploadTimeout="false"
+			keepAliveTimeout="20000" acceptCount="100000" acceptorThreadCount="16"
+			acceptorThreadPriority="5" maxConnections="20000" maxThreads="20000"
+			minSpareThreads="100" compression="on" compressionMinSize="102400"
+			noCompressionUserAgents="gozilla,traviata"
+			compressibleMimeType="text/html,text/plain,text/css,application/javascript,application/json,application/x-font-ttf,application/x-font-otf,image/svg+xml,image/jpeg,image/png,image/gif"
+
+			tcpNoDelay="true" threadPriority="5" allowTrace="false" asyncTimeout="60"
+
+			maxHeaderCount="-1" maxParameterCount="-1" maxPostSize="-1"
+			maxSavePostSize="4096" connectionLinger="5" maxHttpHeaderSize="8192"
+			maxKeepAliveRequests="5000" maxTrailerSize="8192" processorCache="20000"
+
+			server="serverVersion1.0" />
+
+		<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+
+		<Engine name="Catalina" defaultHost="localhost">
+			<Realm className="org.apache.catalina.realm.LockOutRealm">
+				<Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase" />
+			</Realm>
+
+			<Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
+                <Context docBase="/opt/webapp/" path="" reloadable="false"></Context>
+			</Host>
+		</Engine>
+	</Service>
+</Server>
